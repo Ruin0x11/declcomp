@@ -2808,7 +2808,10 @@ the lazy dog.
 ]==],
             lists = [[
 { 1, 2, 3 }
+{ "Red", "Yellow", "Green" }
 { "Text", 42, true }
+{ { 1, 2 }, { 3, 4, 5 } }
+{ { 1, 2 }, { "a", "b", "c" } }
 ]],
             maps = [[
 {
@@ -2941,17 +2944,16 @@ Violets are blue"
 ]],
             lists = [[
 '(1 2 3)
+'("Red" "Yellow" "Green")
 '("Text" 42 t)
 '((1 2) (3 4 5))
 '((1 2) ("a" "b" "c"))
 ]],
             maps = [[
-# Association lists:
-
+;; Association lists:
 '((key-1 . "Text") (key-2 . 42) (key-3 . t))
 
-# Property lists:
-
+;; Property lists:
 '(:key-1 "Text" :key-2 42 :key-3 t)
 ]],
             comments = [[
@@ -2964,6 +2966,54 @@ Violets are blue"
 (format "Hello, %s!" name)
 ]],
             attributes = nil,
+         },
+      },
+      {
+         id = "watson",
+         name = "Watson",
+         class = "plaintext",
+         link = "https://github.com/genkami/watson",
+         syntaxes = {
+            null_values = ".",
+            booleans = [[
+zo
+z
+]],
+integers = [[
+Bububbbbubu
+Bubbubbub
+B
+Bubububububububububububububububububububububububububububububububububububububububububububububububububububububububububububbubububu
+]],
+            floats = [[
+Bububububububububububbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbi
+Bubbbbbbbbbbbubbbubbbubbbbbubububbbubbubbububbbbbbbubbbbbbububbbbubbbubbbububbubububui
+Bubbubububububububbbbbubbbbububububbubbubububbbbbubbubbbbububububbubbubububbbbbubbubbbbububububbubui
+]],
+            strings = [[
+?Shaaahaaah-Shaaahahah-Shahaahahaah-Shaaaaa-Shahaaaaah-Shaaaaa-Shahahaaahah-Shahahaahaa-Shahahaaaha-Shahaahaaah-Shahaahahaha-Shahaaahahah-Shaahahaha-
+?Shaahahaaah-Shahaahahahah-Shahahaahaah-Shaaaaa-Shahaaaahah-Shahaaaaah-Shahaahahaha-Shaaaaa-Shaaaaha-Shahahaaaah-Shahahaahaah-Shahaahahahah-Shahahaahaa-Shahaaahaah-Shaaaaha-Shaaaaa-Shahaahahaah-Shahaaahaah-Shaahahaha-
+?Shahahaahahahah-Shaahahahaahah-Shaahahahahahah-Shaaahahaha-Shahaaaaah-Shahaahahaah-Shahaaahaah-Shaaah-Shaaahaaha-Shahaahahahah-Shahahaaahah-Shahaaaaahah-Shaahaahaaah-Shaaha-Shaaahahaa-Shahaahahahah-Shahaaaahah-Shaaah-Shaahaaahah-Shaaaahaha-Shaahahaha-
+]],
+            literal_strings = nil,
+            multiline_strings = nil,
+            lists = [[
+@BububububububububububbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbisBubbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbisBubbbbbbbbbbbubbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbis
+@?Shaahaaaha-Shahaaahaah-Shahaaahaa-?$Bubbububbbu!Bububbbubbu!Bububbububb!Bububbububb!Bububbubububu!Bubububbububu!s?Shaaaahahah-Shahahaaaha-Shahaaahaah-Shahaaahaah-Shahaahahaha-?
+@?Shaahaahaa-Shahaaahaah-Shahahahaaa-Shahahaahaa-?Shaaaaaaaahaaaahaahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaz?^!?
+@@BububububububububububbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbisBubbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbiss@BubbbbbbbbbbbubbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbisBubbbbbbbbbbubbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbisBubbbbbbbbbbubbubbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbiss
+@@BububububububububububbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbisBubbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbiss@?Shahaaaaah-?$Bububbbbub!s?Shahaaaahah-??
+]],
+            maps = [[
+~?Shahaahaahah-Shahaaahaah-Shahahahaaah-Shaahahahahah-Shahaaahah-^!g$Bububbubbubu!Bububbbubbu!Bububububbbu!Bubbububububu!Bububbbbu!?Shaahaahaa-Shahaaahaah-Shahahahaaa-Shahahaahaa-g$Bububbubbubu!Bububbbubbu!Bububububbbu!Bubbububububu!Bububbbub!BubbbbbbbbubbbbubbubbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbiM
+]],
+            comments = nil,
+            functions = nil,
+            string_interpolation = nil,
+            attributes = nil,
+            complete_example = [[
+~?Shahaahaaah-Shahahaahaa-Shahaaahaah-Shahaahahaah-Shahahaaahah-v+$Bubububbbb!Bububbbbbu!Bubububbbub!Bubububbubb!Bubbububububu!Bububbububub!Bububbubububu!?Shaaaaaah-Shahaahaa-Shahaahahah-Shahahaaa-Shahaahaha-g$Bububbbubb!Bububbbubbu!Bubububbbubu!Bububbbbubu!Bubububbbub!Bububbubbbu!Bubububbbb!?Shaahaahahah-Shahaaaaah-Shahahaahaa-Shahaaahaah-Shahahaaaha-Shaaaaa-Shaaaaaha-Shahahaahaah-Shahaaaahah-Shahaahaahah-Shahaaahaah-Shahahaahaa-Shaaaaa-Shaahaaa-Shaaaahaha-Shahaahaaah-Shahaahahaa-Shahaahahaa-Shahaaahaah-Shahaaahaa-Shaahaaah-g$Bubububbbb!Bubububbbub!Bububbubbbu!Bububbbbubu!Bububbbubbu!BububububububububububbububububbbbbubbubbbbububububbubbubububbbbbubbubbbbububububbubbubububbbbbubbuiM?Shahahaaaah-Shahahaahaah-Shahaaaaah-Shahaahahaha-Shahahaahaa-Shahaahaaah-Shahahaahaa-Shahahahaaah-Shaaaaaaaaaahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaazg?+$Bububbbubb!Bububbbubbu!Bubububbbubu!Bububbbbubu!Bubububbbub!Bububbubbbu!Bubububbbb!?Shaaahaaa-Shahaahaaah-Shahaaahahah-Shahaahaaa-Shaaaaa-Shaaahaaa-Shahaaahaah-Shahaaahaah-Shahaahahaa-Shahaaahaah-Shahaaahaa-Shaaaaa-Shaaaaha-Shaahaaaha-Shahahaahaah-Shahaaaaha-Shahahahaaah-Shaaaaha-Shaaaaa-Shaahaaahah-Shahaahahaa-Shahaahaaah-Shahahaaaa-Shahahaaaa-Shahaaahaah-Shahahaaaha-Shahahaaahah-g$Bubububbbubu!Bububbubbbu!Bububububbub!Bububbbubbu!BubbbbbbbbbubbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbiM?Shahahaaaa-Shahahaaaha-Shahaahaaah-Shahaaaahah-Shahaaahaah-Shaaaaaaaahahaaaaaahaahahaahahaaahahaaahahaaahahaaahahaaahahaaahahaaahahaaahahaaahahaaahahazg$Bubububbbbu!Bubububbubbu!Bububbbbbu!Bububbububub!Bubububbubb!Bububbubbbu!Bubububbubb!Bububububbbu!BububububububububububbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbiM?Shahahaaaa-Shahaaaaah-Shahahaaaha-Shahahaahaa-Shaahahahahah-Shahaahahaha-Shahaahahahah-$Bubbbbubbu!Bububbbbu!Bububbubub!Bububbbub!Bubububbb!MsM?Shahaaaaha-Shahaahaaah-Shahaahahaa-Shahaahahaa-Shaahaahaa-Shahaahahahah-+$Bubububbbubu!Bubububbubb!Bubububbbub!Bububbbubbu!Bububbbubbu!Bubububbubb!?Shahaaaah-Shahaaaha-Shahaaahah-Shaaaaa-Shaahaahaa-Shahaahahahah-Shahahaaaha-Shahaahahaha-Shahaaaaah-Shahaaahaa-Shahaahahahah-Shaaaaa-Shaaaaaah-Shahaahahaa-Shahaahahaa-Shahaaahaah-Shahahahaaah-Shaaha-Shaahaaahah-Shahahaahaah-Shahaahaaah-Shahahaahaa-Shahaaahaah-Shaaaaa-Shahaaaah-Shahaahaha-g$Bububbbbubu!Bububbubbbu!Bubububbubb!Bububububbbu!?Shaaaahaah-Shahaaaaah-Shahahaaahah-Shahahaahaa-Shaaaaa-Shaaaaahah-Shahaaahaah-Shahaahahaha-Shahahaahaa-Shahaaahaah-Shahahaaaha-Shahahaahaha-Shahaahaaah-Shahaahahaa-Shahaahahaa-Shahaaahaah-g$Bubububbbubu!Bubububbubb!Bububbbbbu!Bubububbubb!Bububbbubbu!?Shaaahaahah-Shaahaaahah-gg$Bubububbbubu!Bububbubbb!Bububbubbbu!Bubububbbb!Bubbubbubb!Bububbubububu!~?Shahahaaahah-Shahahaahaa-Shahahaaaha-Shahaaahaah-Shahaaahaah-Shahahaahaa-$Bububbbbu!Bububbbub!Bububbbubu!Bubbbbb!Bubbubbubb!Bububbubububu!Bubububbbub!Bububbububub!Bububbbbbu!Bububbbubb!Bububbubububu!Bubbbbb!Bubbbbbbu!Bububbububb!Bububbububb!Bububbbubbu!Bububububbbu!Bubbub!Bubbubbbubu!Bubububbubbu!Bububbubbbu!Bubububbubb!Bububbbubbu!Bubbbbb!Bububbbbu!Bububbubub!M?Shahaaaahah-Shahaahaaah-Shahahaahaa-Shahahahaaah-$Bubbbbubbu!Bububbbbbu!Bubububbbubu!Bubububbubb!Bubbbbb!Bubbbbbubu!Bububbbubbu!Bububbububub!Bubububbubb!Bububbbubbu!Bubububbbub!Bubububbubub!Bububbubbbu!Bububbububb!Bububbububb!Bububbbubbu!M?Shahahaaahah-Shahahaahaa-Shahaaaaah-Shahahaahaa-Shahaaahaah-$Bubbbubbubu!Bubbubbbubu!MM?Shahahaaahah-Shahahaaaa-Shahaaahaah-Shahaaaahah-Shahaahaaah-Shahaaaaah-Shahaahahaa-Shaaaahaa-Shahaaahaah-Shahaahahaa-Shahaahaaah-Shahahaahaha-Shahaaahaah-Shahahaaaha-Shahahahaaah-$Bubbbbubub!Bububbubububu!Bububbububb!Bububbububb!Bububbubububu!Bubububbububu!Bubbbbb!Bubububbubb!Bububbubbb!Bububbbubbu!Bubbbbb!Bubbububbbu!Bububbbubbu!Bububbububb!Bububbububb!Bububbubububu!Bubububbububu!Bubbbbb!Bubbbbbub!Bubububbbub!Bububbubbbu!Bububbbbubu!Bububbubbubu!Bubbbbb!Bubbubbbub!Bububbubububu!Bububbbbbu!Bububbbubb!Bubbbbb!Bubububbubb!Bububbubububu!Bubbbbb!Bubububbubb!Bububbubbb!Bububbbubbu!Bubbbbb!Bubbbbubbu!Bububbububbu!Bububbbubbu!Bubububbbub!Bububbbbbu!Bububbububb!Bububbbubb!Bubbbbb!Bubbbbbubu!Bububbubbbu!Bubububbubb!Bububububbbu!Bubbububub!Bubbbbb!Bubbubbbb!Bububbbbbu!Bububububbbu!Bubbbbb!Bububbububub!Bububbubububu!Bubbbbb!Bububbbbbu!Bubububbubb!Bubububbubb!Bububbbubbu!Bububbububub!Bubububbubb!Bububbubbbu!Bububbubububu!Bububbububub!Bubbbbb!Bubububbubb!Bububbubububu!Bubbbbb!Bubububbubb!Bububbubbb!Bububbbubbu!Bubbbbb!Bububbububbu!Bububbbbbu!Bububbububub!Bubbbbb!Bububbbbub!Bububbbubbu!Bububbubbb!Bububbubbbu!Bububbububub!Bububbbubb!Bubbbbb!Bubububbubb!Bububbubbb!Bububbbubbu!Bubbbbb!Bububbbbubu!Bubububbubbu!Bubububbbub!Bubububbubb!Bububbbbbu!Bububbubbbu!Bububbububub!Bubbububub!M?Shahahaaaha-Shahaaahaah-Shahaaaahah-Shahaaahaah-Shahaahaaah-Shahahaaaa-Shahahaahaa-$Bubbbubububu!Bububububbub!Bubbububbu!Bubbubbububu!Bububbbbbu!Bubububbbub!Bububbbubbu!Bubbbbb!Bubbubbbb!Bubububbubbu!Bubububbbub!Bububbbbubu!Bububbubbb!Bububbbbbu!Bubububbbubu!Bububbbubbu!Bubbbbb!Bubbbubbbu!Bububbububub!Bubububbubub!Bububbubububu!Bububbubbbu!Bububbbbubu!Bububbbubbu!M?Shahaaahaa-Shahaaaaah-Shahahaahaa-Shahaaahaah-$Bububbbub!Bububbbb!Bububbbbu!Bububbbub!Bubbububbu!Bububbbb!Bubububbb!Bubbububbu!Bububbbb!Bububbubub!M?Shahaaaahah-Shahahaahaah-Shahahaaahah-Shahahaahaa-Shahaahahahah-Shahaahahaah-Shahaaahaah-Shahahaaaha-+$Bububbbubub!Bububbbbbu!Bububbububbu!Bububbubbbu!Bububbububb!Bububububbbu!Bubbububububu!Bububbububub!Bububbbbbu!Bububbububbu!Bububbbubbu!?Shaaaahahah-Shahaaaaah-Shahaahahaa-Shahaaahaah-g$Bububbbubub!Bububbubbbu!Bubububbbub!Bubububbbubu!Bubububbubb!Bubbububububu!Bububbububub!Bububbbbbu!Bububbububbu!Bububbbubbu!?Shaaaahaa-Shahaahahahah-Shahahaaaha-Shahaahahahah-Shahahaahaa-Shahaahaaa-Shahahahaaah-gg
+]]
          },
       }
    }
