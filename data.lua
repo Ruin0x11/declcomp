@@ -49,8 +49,12 @@ return {
          name = "Binary"
       },
       {
-         id = "functions",
-         name = "Functions"
+         id = "expressions",
+         name = "Expressions"
+      },
+      {
+         id = "function_definitions",
+         name = "Function Definitions"
       },
       {
          id = "string_interpolation",
@@ -129,7 +133,7 @@ maps = [[
 </map>
 ]],
 comments = "<!-- Comment -->",
-functions = nil,
+function_definitions = nil,
 string_interpolation = nil,
 attributes = "<author email=\"peter@example.org\" active=\"true\">Peter Parker</author>",
 metadata = [[
@@ -221,7 +225,7 @@ maps = [[
    "key_3": true
 }
 ]],
-functions = nil,
+function_definitions = nil,
 string_interpolation = nil,
 attributes = nil,
 complete_example = [[
@@ -388,7 +392,7 @@ map: {key_1: Text, key_2: 42, key_3: true}
 comments = [[
 # Comment
 ]],
-functions = nil,
+function_definitions = nil,
 string_interpolation = [[
 # Ansible only
 
@@ -585,7 +589,7 @@ key_3 = true
 comments = [[
 # Comment
 ]],
-functions = nil,
+function_definitions = nil,
 string_interpolation = nil,
 attributes = nil,
 complete_example = [=[
@@ -705,7 +709,7 @@ comments = [[
  * Block comment
  */
 ]],
-functions = nil,
+function_definitions = nil,
 string_interpolation = nil,
 attributes = nil,
 complete_example = [[
@@ -825,7 +829,7 @@ map.key_3 = true
 
 # Comment
 ]],
-            functions = nil,
+            function_definitions = nil,
             string_interpolation = [[
 message : Hello, ${name}!
 
@@ -909,7 +913,7 @@ map:
    key_3: true
 ]],
 comments = "# Comment",
-functions = nil,
+function_definitions = nil,
 string_interpolation = nil,
 attributes = nil,
 complete_example = [[
@@ -1038,7 +1042,7 @@ map {
 
 -- Comment
 ]],
-            functions = nil,
+            function_definitions = nil,
             string_interpolation = nil,
             attributes = [[
 author "Peter Parker" email="peter@example.org" active=true
@@ -1191,7 +1195,7 @@ mynode /-"commented" "not commented" /-key="value" /-{
   b
 }
 ]],
-            functions = nil,
+            function_definitions = nil,
             string_interpolation = nil,
             typed_tags = [[
 (i32)12
@@ -1284,11 +1288,16 @@ integers = [[
 "You can \"quote\" me."
 "Name\tJos\u00E9\nLoc\tSF."
 ]],
-            literal_strings = nil,
+            literal_strings = [[
+'C:\Users\nodejs\templates'
+'\\User\admin$\system32'
+'Tom "Dubs" Preston-Werner'
+'<\i\c*\s*>'
+]],
             multiline_strings = [[
 <<END
-Roses are red \
-Violets are blue"
+Roses are red
+Violets are blue
 END
 
 # Trims preceding whitespace:
@@ -1321,20 +1330,11 @@ a "b" "c" {
    key_3 = true
 }
 ]],
-            comments = [[
-# Comment
-
-// Comment
-
-/*
- * Block comment
- */
-]],
             expressions = [[
 # Arithmetic with literals and application-provided variables
 sum = 1 + addend
 
-# Application-provided functions
+# Application-provided function_definitions
 shouty_message = upper(message)
 
 # For loops
@@ -1343,6 +1343,15 @@ shouty_message = upper(message)
 [for i, v in ["a", "b"]: i]              # [0, 1]
 {for i, v in ["a", "b"]: v => i}         # {a = 0, b = 1}.
 {for i, v in ["a", "a", "b"]: v => i...} # {a = [0, 1], b = [2]}.
+]],
+            comments = [[
+# Comment
+
+// Comment
+
+/*
+ * Block comment
+ */
 ]],
             string_interpolation = [[
 message = "Hello, ${name}!"
@@ -1383,6 +1392,157 @@ shipTo {
   street = "123 Tornado Alley\nSuite 16"
   city = "East Centerville"
   state = "KS"
+}
+
+specialDelivery = <<END
+Follow the Yellow Brick
+Road to the Emerald City.
+Pay no attention to the
+man behind the curtain.
+END
+]]
+         },
+      },
+      {
+         id = "ucl",
+         name = "UCL",
+         class = "plaintext",
+         link = "https://github.com/vstakhov/libucl",
+         syntaxes = {
+            null_values = "null",
+            booleans = [[
+true
+false
+yes
+no
+on
+off
+]],
+integers = [[
+99
+42
+0
+-17
+
+# Quantities:
+1k  # => 1000
+1kb # => 1024
+]],
+            floats = [[
+# Fractional:
+1.0
+3.1415
+-0.01
+
+# Exponent:
+5e+22
+1e06
+-2E-2
+
+# Both:
+6.626e-34
+
+# Time:
+10min # => 600.0
+10ms  # => 0.01
+]],
+            strings = [[
+"I'm a string."
+"You can \"quote\" me."
+"Name\tJos\u00E9\nLoc\tSF."
+
+# Unquoted:
+
+hello
+abc_123
+]],
+            literal_strings = [[
+'C:\Users\nodejs\templates'
+'\\User\admin$\system32'
+'Tom "Dubs" Preston-Werner'
+'<\i\c*\s*>'
+]],
+            multiline_strings = [[
+str1 = <<END
+Roses are red
+Violets are blue
+END
+
+str2 <<FOO
+The quick brown
+fox jumps over
+the lazy dog.
+FOO
+]],
+            lists = [=[
+[1, 2, 3]
+["Red", "Yellow", "Green"]
+["Text", 42, true]
+[[1, 2], [3, 4, 5]]
+[[1, 2], ["a", "b", "c"]]
+]=],
+            maps = [[
+map {
+   key_1 = "Text";
+   key_2 = 42;
+   key_3 true;
+}
+
+# Nested:
+
+a b c {
+   key_1 = "Text";
+   key_2 = 42;
+   key_3 true;
+}
+]],
+            comments = [[
+# Comment
+
+/*
+ * Block comment
+ */
+]],
+expressions = nil,
+            string_interpolation = [[
+message = "Hello, ${name}!"
+]],
+            attributes = nil,
+            complete_example = [[
+receipt = "Oz-Ware Purchase Invoice";
+date = "2012-08-06";
+
+customer {
+  first_name = "Dorothy";
+  family_name = "Gale";
+}
+
+items [
+  {
+    part_no = A4786;
+    descrip = "Water Bucket (Filled)";
+    price = 1.47;
+    quantity = 4;
+  },
+  {
+    part_no = E1628;
+    descrip = "High Heeled \"Ruby\" Slippers";
+    size = 8;
+    price = 133.7;
+    quantity = 1;
+  }
+]
+
+billTo {
+  street = "123 Tornado Alley\nSuite 16";
+  city = "East Centerville";
+  state = KS;
+}
+
+shipTo {
+  street = "123 Tornado Alley\nSuite 16";
+  city = "East Centerville";
+  state = KS;
 }
 
 specialDelivery = <<END
@@ -1478,7 +1638,7 @@ in { key_1 = "Text"
    Block comment
 -}
 ]],
-            functions = [[
+            function_definitions = [[
 let add = \(a : Natural) -> \(b : Natural) -> a + b
 ]],
             expressions = nil,
@@ -1637,7 +1797,7 @@ shift_jis ::
  * Block comment
  */
 ]],
-            functions = nil,
+            function_definitions = nil,
             string_interpolation = nil,
             typed_tags = [[
 int32::12
@@ -1810,7 +1970,7 @@ struct2: Struct(
  * Block comment
  */
 ]],
-            functions = nil,
+            function_definitions = nil,
             string_interpolation = nil,
             attributes = nil,
             other = [[
@@ -1945,7 +2105,7 @@ datetimes = [[
             comments = [[
 ; Comment
 ]],
-            functions = nil,
+            function_definitions = nil,
             string_interpolation = nil,
             attributes = nil,
             typed_tags = [[
@@ -2034,7 +2194,7 @@ map
             comments = [[
 # Comment
 ]],
-            functions = nil,
+            function_definitions = nil,
             string_interpolation = nil,
             attributes = nil,
          }
@@ -2125,7 +2285,7 @@ comments = [[
  * Block comment
  */
 ]],
-functions = nil,
+function_definitions = nil,
 string_interpolation = nil,
 attributes = [[
 Author (email = "peter@example.org", active = true)
@@ -2201,6 +2361,139 @@ Invoice {
          },
       },
       {
+         id = "mark",
+         name = "Mark",
+         class = "plaintext",
+         link = "https://mark.js.org",
+         syntaxes = {
+            null_values = "null",
+            booleans = [[
+true
+false
+]],
+integers = [[
++99
+42
+0
+-17
+
+// Hexadecimal:
+0xdeadbeef
+]],
+floats = [[
++1.0
+3.1415
+-0.01
+
+NaN
+-NaN
+Infinity
+-Infinity
+
+// Leading/trailing decimal point:
+
+.8675309
+8675309.
+]],
+strings = [[
+"I'm a string."
+"You can \"quote\" me."
+"Name\tJos\u00E9\nLoc\tSF."
+]],
+literal_strings = [[
+'C:\Users\nodejs\templates'
+'\\User\admin$\system32'
+'Tom "Dubs" Preston-Werner'
+'<\i\c*\s*>'
+]],
+            multiline_strings = [[
+"Roses are red
+Violets are blue"
+
+'''
+The quick brown
+fox jumps over
+the lazy dog.
+'''
+]],
+lists = [=[
+[1, 2, 3]
+["Red", "Yellow", "Green"]
+["Text", 42, true]
+[[1, 2], [3, 4, 5]]
+[[1, 2], ["a", "b", "c"]]
+]=],
+maps = [[
+{map
+   {key_1 "Text"}
+   {key_2 42}
+   {key_3 true}
+}
+]],
+comments = [[
+// Comment
+
+/*
+ * Block comment
+ */
+]],
+
+binary = [[
+// Base64:
+[#sdf789GSfsb2+3324sf2]
+
+// Ascii85:
+[#~d?8s,~]
+]],
+function_definitions = nil,
+string_interpolation = nil,
+attributes = nil,
+complete_example = [[
+{invoice
+  {receipt "Oz-Ware Purchase Invoice"}
+  {date "2012-08-06"}
+  {customer
+    {first_name "Dorothy"}
+    {family_name "Gale"}
+  }
+  {items
+    [
+      {item
+        {part_no "A4786"}
+        {descrip "Water Bucket (Filled)"}
+        {price 1.47}
+        {quantity 4}
+      },
+      {item
+        {part_no "E1628"}
+        {descrip "High Heeled \"Ruby\" Slippers"}
+        {size 8}
+        {price 133.7}
+        {quantity 1}
+      }
+    ]
+  }
+  {billTo
+    {street "123 Tornado Alley\nSuite 16"}
+    {city "East Centerville"}
+    {state "KS"}
+  }
+  {shipTo
+    {street "123 Tornado Alley\nSuite 16"}
+    {city "East Centerville"}
+    {state "KS"}
+  }
+  {specialDelivery
+"Follow the Yellow Brick
+Road to the Emerald City.
+Pay no attention to the
+man behind the curtain."
+  }
+}
+]]
+         },
+      },
+      {
          id = "ogdl",
          name = "OGDL",
          class = "plaintext",
@@ -2267,7 +2560,7 @@ config.network.ip
 text.paragraph{2}
 limits.range[1]
 ]],
-            functions = nil,
+            function_definitions = nil,
             string_interpolation = nil,
             attributes = nil,
          },
@@ -2357,7 +2650,7 @@ map2
             comments = [[
 # Comment
 ]],
-            functions = nil,
+            function_definitions = nil,
             string_interpolation = nil,
             attributes = nil,
          },
@@ -2438,7 +2731,7 @@ map = {
             comments = [[
 # Comment
 ]],
-            functions = [[
+            function_definitions = [[
 def add(a, b):
    return a + b
 ]],
@@ -2501,7 +2794,7 @@ comments = [[
 
 -# Silent Comment (removed from HTML)
 ]],
-functions = [[
+expressions = [[
 #content
   == yield
 
@@ -2612,7 +2905,7 @@ comments = [[
 
 /! HTML Comment (displayed in document)
 ]],
-functions = [[
+expressions = [[
 - books = ['book 1', 'book 2', 'book 3']
 
 - books.shuffle.each_with_index do |book, index|
@@ -2711,7 +3004,7 @@ key2
             lists = nil,
             maps = nil,
             comments = "# Comment",
-            functions = [[
+            function_definitions = [[
 pref-page =
     .title = { PLATFORM() ->
         [windows] Options
@@ -2893,7 +3186,7 @@ map2
 comments = [[
 # Comment
 ]],
-functions = nil,
+function_definitions = nil,
 string_interpolation = nil,
 attributes = nil,
 metadata = "@schema dadl 0.1",
@@ -2986,7 +3279,7 @@ Violets are blue
             comments = [[
 # Comment
 ]],
-            functions = [[
+            function_definitions = [[
 add = a: b: a + b
 ]],
             string_interpolation = [[
@@ -3070,7 +3363,7 @@ the lazy dog.
 --]=]
 
 ]==],
-            functions = [[
+            function_definitions = [[
 function(a, b) return a + b end
 ]],
             string_interpolation = [[
@@ -3191,7 +3484,7 @@ Violets are blue"
             comments = [[
 ; Comment
 ]],
-            functions = [[
+            function_definitions = [[
 (lambda (a b) (+ a b))
 ]],
             string_interpolation = [[
@@ -3240,7 +3533,7 @@ Bubbubububububububbbbbubbbbububububbubbubububbbbbubbubbbbububububbubbubububbbbbu
 ~?Shahaahaahah-Shahaaahaah-Shahahahaaah-Shaahahahahah-Shahaaahah-^!g$Bububbubbubu!Bububbbubbu!Bububububbbu!Bubbububububu!Bububbbbu!?Shaahaahaa-Shahaaahaah-Shahahahaaa-Shahahaahaa-g$Bububbubbubu!Bububbbubbu!Bububububbbu!Bubbububububu!Bububbbub!BubbbbbbbbubbbbubbubbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbiM
 ]],
             comments = nil,
-            functions = nil,
+            function_definitions = nil,
             string_interpolation = nil,
             attributes = nil,
             complete_example = [[
