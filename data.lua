@@ -281,7 +281,7 @@ functions = nil,
 string_interpolation = [[
 # Ansible only
 
-str1: "foo {{variable}}"
+message: "Hello, {{name}}!"
 ]],
 binary = [[
 canonical: !!binary "sdf789GSfsb2+3324sf2"
@@ -591,16 +591,7 @@ map.key_3 = true
 ]],
             functions = nil,
             string_interpolation = [[
-// Substitutions:
-
-standard-timeout = 10ms
-foo.timeout = ${standard-timeout}
-bar.timeout = ${standard-timeout}
-
-// Interpolation:
-
-tasks-url : ${base-url}/tasks
-tasks-url : ${base-url}"tasks:colon-must-be-quoted"
+message : Hello, ${name}!
 ]],
             attributes = nil,
             other = [[
@@ -610,6 +601,12 @@ include url("http://mydomain.com/myfile.conf")
 include "path/to/file.conf"
 include file("path/to/file.conf")
 conf = include "file.conf"
+
+// Substitutions:
+
+standard-timeout = 10ms
+foo.timeout = ${standard-timeout}
+bar.timeout = ${standard-timeout}
 ]]
          },
       },
@@ -1008,7 +1005,7 @@ let add = \(a : Natural) -> \(b : Natural) -> a + b
 ]],
             expressions = nil,
             string_interpolation = [[
-"${a} and ${b} and ${c}"
+"Hello, ${name}!"
 ]],
             attributes = nil,
          },
@@ -1419,7 +1416,7 @@ the lazy dog.
 function(a, b) return a + b end
 ]],
             string_interpolation = [[
-("%s and %s and %s"):format("Text", 42, true)
+("Hello, %s!"):format(name)
 ]],
             attributes = nil,
          },
@@ -1495,7 +1492,7 @@ Violets are blue"
 (lambda (a b) (+ a b))
 ]],
             string_interpolation = [[
-(format "%s and %s and %s" "Text" 42 t)
+(format "Hello, %s!" name)
 ]],
             attributes = nil,
          },
