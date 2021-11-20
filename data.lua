@@ -65,6 +65,10 @@ return {
          name = "Typed Tags"
       },
       {
+         id = "metadata",
+         name = "Metadata"
+      },
+      {
          id = "path_expressions",
          name = "Path Expressions"
       },
@@ -128,7 +132,7 @@ comments = "<!-- Comment -->",
 functions = nil,
 string_interpolation = nil,
 attributes = "<author email=\"peter@example.org\" active=\"true\">Peter Parker</author>",
-meta_information = [[
+metadata = [[
 <?xml version="1.0" encoding="UTF-8" ?>
 ]],
 complete_example = [[
@@ -141,17 +145,19 @@ complete_example = [[
     <family_name>Gale</family_name>
   </customer>
   <items>
-    <part_no>A4786</part_no>
-    <descrip>Water Bucket (Filled)</descrip>
-    <price>1.47</price>
-    <quantity>4</quantity>
-  </items>
-  <items>
-    <part_no>E1628</part_no>
-    <descrip>High Heeled &quot;Ruby&quot; Slippers</descrip>
-    <size>8</size>
-    <price>133.7</price>
-    <quantity>1</quantity>
+    <li>
+      <part_no>A4786</part_no>
+      <descrip>Water Bucket (Filled)</descrip>
+      <price>1.47</price>
+      <quantity>4</quantity>
+    </li>
+    <li>
+      <part_no>E1628</part_no>
+      <descrip>High Heeled &quot;Ruby&quot; Slippers</descrip>
+      <size>8</size>
+      <price>133.7</price>
+      <quantity>1</quantity>
+    </li>
   </items>
   <billTo>
     <street>
@@ -1295,6 +1301,7 @@ FOO
 ]],
             lists = [=[
 [1, 2, 3]
+["Red", "Yellow", "Green"]
 ["Text", 42, true]
 [[1, 2], [3, 4, 5]]
 [(1, 2), ["a", "b", "c"]]
@@ -1575,8 +1582,10 @@ Violets are blue
 ]],
             lists = [=[
 [1, 2, 3]
+["Red", "Yellow", "Green"]
 ["Text", 42, true]
 [[1, 2], [3, 4, 5]]
+[[1, 2], ["a", "b", "c"]]
 
 # S-expressions:
 
@@ -1682,6 +1691,192 @@ Pay no attention to the
 man behind the curtain.
 '''
 }
+]]
+         },
+      },
+      {
+         id = "ron",
+         name = "RON",
+         class = "plaintext",
+         link = "https://github.com/ron-rs/ron",
+         syntaxes = {
+            null_values = [[
+// Option<T> only
+None
+]],
+            booleans = [[
+true
+false
+]],
+            integers = [[
++99
+42
+0
+-17
+
+// Grouping:
+1_000
+5_349_221
+53_49_221
+1_2_3_4_5
+
+// Hexadecimal:
+0xDEADBEEF
+0xdeadbeef
+0xdead_beef
+
+// Octal:
+0o01234567
+0o755
+
+// Binary:
+0b11010110
+]],
+            floats = [[
+// Fractional:
+1.0
+3.1415
+-0.01
+
+// Exponent:
+5e+22
+1e06
+-2E-2
+
+// Both:
+6.626e-34
+]],
+strings = [[
+"I'm a string."
+"You can \"quote\" me."
+"Name\tJos\u00E9\nLoc\tSF."
+]],
+literal_strings = [[
+r#"C:\Users\nodejs\templates"#
+r#"\\User\admin$\system32"#
+r#"Tom "Dubs" Preston-Werner"#
+r#"<\i\c*\s*>"#
+]],
+            multiline_strings = [[
+r#"
+Roses are red
+Violets are blue
+"#
+
+r##"
+The quick brown
+fox jumps over
+the lazy dog.
+"##
+]],
+            lists = [=[
+[1, 2, 3]
+["Red", "Yellow", "Green"]
+["Text", 42, true]
+[[1, 2], [3, 4, 5]]
+[[1, 2], ["a", "b", "c"]]
+
+# Tuple syntax:
+(1, 2, 3)
+TupleStruct(true,)
+]=],
+            maps = [[
+# Map syntax:
+
+map: {
+   key_1: "Text",
+   key_2: 42,
+   key_3: true
+}
+
+# Struct syntax:
+
+struct1: (
+   key_1: "Text",
+   key_2: 42,
+   key_3: true
+)
+
+struct2: Struct(
+   key_1: "Text",
+   key_2: 42,
+   key_3: true
+)
+]],
+            comments = [[
+// Comment
+
+/*
+ * Block comment
+ */
+]],
+            functions = nil,
+            string_interpolation = nil,
+            attributes = nil,
+            other = [[
+// Chars:
+
+'a'
+'\n'
+
+// Unit structs:
+
+Unit
+()
+
+// Optionals/Enum variants:
+
+Some(42)
+None
+PageLoad
+KeyPress('c')
+]],
+            complete_example = [[
+Invoice(
+  receipt: "Oz-Ware Purchase Invoice",
+  date: "2012-08-06",
+
+  customer: Person(
+    first_name = "Dorothy"
+    family_name = "Gale"
+  ),
+
+  items: [
+    Item(
+      part_no = "A4786"
+      descrip = "Water Bucket (Filled)"
+      size = None,
+      price = 1.47
+      quantity = 4
+    ),
+    Item(
+      part_no = "E1628"
+      descrip = "High Heeled \"Ruby\" Slippers"
+      size = Some(8)
+      price = 133.7
+      quantity = 1
+    )
+  },
+
+  billTo: Address(
+    street = "123 Tornado Alley\nSuite 16"
+    city = "East Centerville"
+    state = "KS"
+  ),
+
+  shipTo: Address(
+    street = "123 Tornado Alley\nSuite 16"
+    city = "East Centerville"
+    state = "KS"
+  ),
+
+  specialDelivery: r#"
+Follow the Yellow Brick
+Road to the Emerald City.
+Pay no attention to the
+man behind the curtain.
+"#
+)
 ]]
          },
       },
@@ -1817,18 +2012,20 @@ Tom "Dubs" Preston-Werner
 [[1, 2], [a, b, c]]
 ]=],
             maps = [[
-key 1: Text
-key 2: 42
-key 3: true
+map
+    key 1: Text
+    key 2: 42
+    key 3: true
 
 # Multiline keys:
 
-: key 1
-:     the first key
-    > value 1
-: key 2: the second key
-    - value 2a
-    - value 2b
+map
+    : key 1
+    :     the first key
+        > value 1
+    : key 2: the second key
+        - value 2a
+        - value 2b
 
 # Inline syntax:
 
@@ -2062,7 +2259,7 @@ map
             comments = [[
 # Comment
 ]],
-            meta_information = [[
+            metadata = [[
 #? ( ogdl 1.0, encoding iso-8859-1 )
 ]],
             path_expressions = [[
@@ -2141,19 +2338,21 @@ literal_strings = [[
 		c
 ]=],
             maps = [[
-key_1
-	\Text
-key_2
-	42
-key_3
-	true
+map1
+	key_1
+		\Text
+	key_2
+		42
+	key_3
+		true
 
 # Multiline keys:
-\key 4
-	/
-		\Text
-		42
-		true
+map2
+	\key 4
+		/
+			\Text
+			42
+			true
 ]],
             comments = [[
 # Comment
@@ -2161,192 +2360,6 @@ key_3
             functions = nil,
             string_interpolation = nil,
             attributes = nil,
-         },
-      },
-      {
-         id = "ron",
-         name = "RON",
-         class = "plaintext",
-         link = "https://github.com/ron-rs/ron",
-         syntaxes = {
-            null_values = [[
-// Option<T> only
-None
-]],
-            booleans = [[
-true
-false
-]],
-            integers = [[
-+99
-42
-0
--17
-
-// Grouping:
-1_000
-5_349_221
-53_49_221
-1_2_3_4_5
-
-// Hexadecimal:
-0xDEADBEEF
-0xdeadbeef
-0xdead_beef
-
-// Octal:
-0o01234567
-0o755
-
-// Binary:
-0b11010110
-]],
-            floats = [[
-// Fractional:
-1.0
-3.1415
--0.01
-
-// Exponent:
-5e+22
-1e06
--2E-2
-
-// Both:
-6.626e-34
-]],
-strings = [[
-"I'm a string."
-"You can \"quote\" me."
-"Name\tJos\u00E9\nLoc\tSF."
-]],
-literal_strings = [[
-r#"C:\Users\nodejs\templates"#
-r#"\\User\admin$\system32"#
-r#"Tom "Dubs" Preston-Werner"#
-r#"<\i\c*\s*>"#
-]],
-            multiline_strings = [[
-r#"
-Roses are red
-Violets are blue
-"#
-
-r##"
-The quick brown
-fox jumps over
-the lazy dog.
-"##
-]],
-            lists = [=[
-[1, 2, 3]
-["Red", "Yellow", "Green"]
-["Text", 42, true]
-[[1, 2], [3, 4, 5]]
-[[1, 2], ["a", "b", "c"]]
-
-# Tuple syntax:
-(1, 2, 3)
-TupleStruct(true,)
-]=],
-            maps = [[
-# Map syntax:
-
-map: {
-   key_1: "Text",
-   key_2: 42,
-   key_3: true
-}
-
-# Struct syntax:
-
-struct: (
-   key_1: "Text",
-   key_2: 42,
-   key_3: true
-)
-
-struct2: Struct(
-   key_1: "Text",
-   key_2: 42,
-   key_3: true
-)
-]],
-            comments = [[
-// Comment
-
-/*
- * Block comment
- */
-]],
-            functions = nil,
-            string_interpolation = nil,
-            attributes = nil,
-            other = [[
-// Chars:
-
-'a'
-'\n'
-
-// Unit structs:
-
-Unit
-()
-
-// Optionals/Enum variants:
-
-Some(42)
-None
-PageLoad
-KeyPress('c')
-]],
-            complete_example = [[
-Invoice(
-  receipt: "Oz-Ware Purchase Invoice",
-  date: "2012-08-06",
-
-  customer: Person(
-    first_name = "Dorothy"
-    family_name = "Gale"
-  ),
-
-  items: [
-    Item(
-      part_no = "A4786"
-      descrip = "Water Bucket (Filled)"
-      size = None,
-      price = 1.47
-      quantity = 4
-    ),
-    Item(
-      part_no = "E1628"
-      descrip = "High Heeled \"Ruby\" Slippers"
-      size = Some(8)
-      price = 133.7
-      quantity = 1
-    )
-  },
-
-  billTo: Address(
-    street = "123 Tornado Alley\nSuite 16"
-    city = "East Centerville"
-    state = "KS"
-  ),
-
-  shipTo: Address(
-    street = "123 Tornado Alley\nSuite 16"
-    city = "East Centerville"
-    state = "KS"
-  ),
-
-  specialDelivery: r#"
-Follow the Yellow Brick
-Road to the Emerald City.
-Pay no attention to the
-man behind the curtain.
-"#
-)
-]]
          },
       },
       {
@@ -2434,6 +2447,224 @@ def add(a, b):
 "Hello %s, your score is %d" % (name, 75)
 ]],
             attributes = nil,
+         },
+      },
+      {
+         id = "haml",
+         name = "HAML",
+         syntaxes = {
+            null_values = nil,
+            booleans = nil,
+            integers = nil,
+            floats = nil,
+            strings = [[
+%span I'm a string.
+%span You can "quote" me.
+%span
+  Name	José
+  Loc	SF.
+]],
+            literal_strings = nil,
+            multiline_strings = [[
+%p
+  Roses are red
+  Violets are blue
+
+%p
+  The quick brown
+  fox jumps over
+  the lazy dog.
+]],
+lists = [[
+%ul
+  %li 1
+  %li 2
+  %li 3
+
+%ul
+  %li Red
+  %li Yellow
+  %li Green
+]],
+maps = [[
+%map
+  %entry{:key => "key_1"} Text
+  %entry{:key => "key_2"} 42
+  %entry{:key => "key_3"} true
+]],
+comments = [[
+/ Comment
+
+/
+   Block Comment
+   Line 2
+
+-# Silent Comment (removed from HTML)
+]],
+functions = [[
+#content
+  == yield
+
+  - unless items.empty?
+    table
+      - items.each do |item|
+        tr
+          td.name = item.name
+          td.price = item.price
+  - else
+    p
+     | No items found.  Please add some inventory.
+       Thank you!
+]],
+string_interpolation = "%span Hello, #{name}!",
+attributes = "%author{:active => true, :email => \"peter@example.org\"} Peter Parker",
+metadata = [[
+!!! XML
+]],
+complete_example = [[
+!!! XML
+%invoice
+  %receipt Oz-Ware Purchase Invoice
+  %date 2012-08-06
+
+  %customer
+    %first_name Dorothy
+    %family_name Gale
+
+  %items
+    %li
+      %part_no A4786
+      %descrip Water Bucket (Filled)
+      %price 1.47
+      %quantity 4
+    %li
+      %part_no E1628
+      %descrip High Heeled "Ruby" Slippers
+      %size 8
+      %price 133.7
+      %quantity 1
+
+  %billTo
+    %street
+      123 Tornado Alley
+      Suite 16
+    %city East Centerville
+    %state KS
+
+  %shipTo
+    %street
+      123 Tornado Alley
+      Suite 16
+    %city East Centerville
+    %state KS
+
+  %specialDelivery Follow the Yellow Brick Road to the Emerald City. Pay no attention to the man behind the curtain.
+]]
+         },
+      },
+      {
+         id = "slim",
+         name = "Slim",
+         class = "haml",
+         syntaxes = {
+            null_values = nil,
+            booleans = nil,
+            integers = nil,
+            floats = nil,
+            strings = [[
+span I'm a string.
+span You can "quote" me.
+span
+  | Name	José
+  | Loc	SF.
+]],
+            literal_strings = nil,
+            multiline_strings = [[
+p
+  | Roses are red
+  | Violets are blue
+
+p
+  | The quick brown
+  | fox jumps over
+  | the lazy dog.
+]],
+lists = [[
+ul
+  li 1
+  li 2
+  li 3
+
+ul
+  li Red
+  li Yellow
+  li Green
+]],
+maps = [[
+map
+  entry key="key_1"  Text
+  entry key="key_2"  42
+  entry key="key_3"  true
+]],
+comments = [[
+/ Block Comment
+  Line 2
+
+/! HTML Comment (displayed in document)
+]],
+functions = [[
+- books = ['book 1', 'book 2', 'book 3']
+
+- books.shuffle.each_with_index do |book, index|
+  %h1= book
+
+  - if book do
+    %p This is a book
+]],
+string_interpolation = "span Hello, #{name}!",
+attributes = "author active=\"true\" email=\"peter@example.org\"  Peter Parker",
+metadata = [[
+doctype XML
+]],
+complete_example = [[
+doctype XML
+invoice
+  receipt Oz-Ware Purchase Invoice
+  date 2012-08-06
+
+  customer
+    first_name Dorothy
+    family_name Gale
+
+  items
+    li
+      part_no A4786
+      descrip Water Bucket (Filled)
+      price 1.47
+      quantity 4
+    li
+      part_no E1628
+      descrip High Heeled "Ruby" Slippers
+      size 8
+      price 133.7
+      quantity 1
+
+  billTo
+    street
+      | 123 Tornado Alley
+      | Suite 16
+    city East Centerville
+    state KS
+
+  shipTo
+    street
+      | 123 Tornado Alley
+      | Suite 16
+    city East Centerville
+    state KS
+
+  specialDelivery Follow the Yellow Brick Road to the Emerald City. Pay no attention to the man behind the curtain.
+]]
          },
       },
       {
@@ -2665,6 +2896,7 @@ comments = [[
 functions = nil,
 string_interpolation = nil,
 attributes = nil,
+metadata = "@schema dadl 0.1",
 other = [[
 # other.dads
 @schema dadl 0.1
