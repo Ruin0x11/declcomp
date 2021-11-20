@@ -805,6 +805,26 @@ function Doc:match(pat)
     return res,ret
 end
 
+function _M.from_rapidxml(t)
+   local tag = t.xml
+   t.xml = nil
+   local attrs = {}
+   for k, v in pairs(t) do
+      if type(k) == "string" then
+         attrs[k] = v
+      end
+   end
+   local doc = _M.new(tag, attrs)
+   for i, v in ipairs(t) do
+      if type(v) == "table" then
+         doc[i] = _M.from_rapidxml(v)
+      else
+         doc[i] = tostring(v)
+      end
+   end
+   return doc
+end
+
 
 return _M
 

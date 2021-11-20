@@ -4,27 +4,6 @@ local fun = require("fun")
 
 require("ext")
 
-local from_rapidxml
-from_rapidxml = function(t)
-   local tag = t.xml
-   t.xml = nil
-   local attrs = {}
-   for k, v in pairs(t) do
-      if type(k) == "string" then
-         attrs[k] = v
-      end
-   end
-   local doc = xml.new(tag, attrs)
-   for i, v in ipairs(t) do
-      if type(v) == "table" then
-         doc[i] = from_rapidxml(v)
-      else
-         doc[i] = tostring(v)
-      end
-   end
-   return doc
-end
-
 local head = {
    xml = "head",
    { xml = "title", "Declarative Programming Languages Comparison" },
@@ -68,7 +47,7 @@ for _, syntax in ipairs(data.syntaxes) do
    tbody[#tbody+1] = row
 end
 
-local doc = from_rapidxml {
+local doc = xml.from_rapidxml {
    xml = "html",
    head,
    { xml = "body",
