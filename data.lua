@@ -1105,12 +1105,60 @@ datetimes = [[
             booleans = nil,
             integers = nil,
             floats = nil,
-            strings = nil,
-            literal_strings = nil,
-            multiline_strings = nil,
-            lists = nil,
-            maps = nil,
-            comments = nil,
+strings = [[
+I'm a string.
+You can "quote" me.
+]],
+literal_strings = [[
+C:\Users\nodejs\templates
+\\User\admin$\system32
+Tom "Dubs" Preston-Werner
+<\i\c*\s*>
+]],
+            multiline_strings = [[
+> Roses are red
+> Violets are blue
+
+> The quick brown
+> fox jumps over
+> the lazy dog.
+]],
+            lists = [=[
+- 1
+- 2
+- 3
+
+- Red
+- Yellow
+- Green
+
+# Inline syntax:
+
+[Text, 42, true]
+[[1, 2], [3, 4, 5]]
+[[1, 2], [a, b, c]]
+]=],
+            maps = [[
+key 1: Text
+key 2: 42
+key 3: true
+
+# Multiline keys:
+
+: key 1
+:     the first key
+    > value 1
+: key 2: the second key
+    - value 2a
+    - value 2b
+
+# Inline syntax:
+
+{key 1: Text, key 2: 42, key 3: true}
+]],
+            comments = [[
+# Comment
+]],
             functions = nil,
             string_interpolation = nil,
             attributes = nil,
