@@ -64,6 +64,10 @@ return {
          id = "typed_tags",
          name = "Typed Tags"
       },
+      {
+         id = "complete_example",
+         name = "Complete Example"
+      },
    },
    languages = {
       {
@@ -116,6 +120,47 @@ comments = "<!-- Comment -->",
 functions = nil,
 string_interpolation = nil,
 attributes = "<author email=\"peter@example.org\" active=\"true\">Peter Parker</author>",
+complete_example = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+<invoice>
+  <receipt>Oz-Ware Purchase Invoice</receipt>
+  <date>2012-08-06</date>
+  <customer>
+    <first_name>Dorothy</first_name>
+    <family_name>Gale</family_name>
+  </customer>
+  <items>
+    <part_no>A4786</part_no>
+    <descrip>Water Bucket (Filled)</descrip>
+    <price>1.47</price>
+    <quantity>4</quantity>
+  </items>
+  <items>
+    <part_no>E1628</part_no>
+    <descrip>High Heeled &quot;Ruby&quot; Slippers</descrip>
+    <size>8</size>
+    <price>133.7</price>
+    <quantity>1</quantity>
+  </items>
+  <billTo>
+    <street>
+      123 Tornado Alley
+      Suite 16
+    </street>
+    <city>East Centerville</city>
+    <state>KS</state>
+  </billTo>
+  <shipTo>
+    <street>
+      123 Tornado Alley
+      Suite 16
+    </street>
+    <city>East Centerville</city>
+    <state>KS</state>
+  </shipTo>
+  <specialDelivery>Follow the Yellow Brick Road to the Emerald City. Pay no attention to the man behind the curtain.</specialDelivery>
+</invoice>
+]]
          }
       },
       {
@@ -162,6 +207,42 @@ maps = [[
 functions = nil,
 string_interpolation = nil,
 attributes = nil,
+complete_example = [[
+{
+  "receipt": "Oz-Ware Purchase Invoice",
+  "date": "2012-08-06",
+  "customer": {
+    "first_name": "Dorothy",
+    "family_name": "Gale"
+  },
+  "items": [
+    {
+      "part_no": "A4786",
+      "descrip": "Water Bucket (Filled)",
+      "price": 1.47,
+      "quantity": 4
+    },
+    {
+      "part_no": "E1628",
+      "descrip": "High Heeled \"Ruby\" Slippers",
+      "size": 8,
+      "price": 133.7,
+      "quantity": 1
+    }
+  ],
+  "billTo": {
+    "street": "123 Tornado Alley\nSuite 16",
+    "city": "East Centerville",
+    "state": "KS"
+  },
+  "shipTo": {
+    "street": "123 Tornado Alley\nSuite 16",
+    "city": "East Centerville",
+    "state": "KS"
+  },
+  "specialDelivery": "Follow the Yellow Brick Road to the Emerald City. Pay no attention to the man behind the curtain."
+}
+]]
          },
       },
       {
@@ -283,6 +364,10 @@ string_interpolation = [[
 
 message: "Hello, {{name}}!"
 ]],
+            datetimes = [[
+1985-04-12T23:20:50.520Z
+1985-04-12
+]],
 binary = [[
 canonical: !!binary "sdf789GSfsb2+3324sf2"
 generic: !binary |
@@ -324,6 +409,42 @@ dice: !!python/object/new:__main__.Dice
   - !!python/tuple [3, 6]
 ]],
 attributes = nil,
+complete_example = [[
+---
+receipt:     Oz-Ware Purchase Invoice
+date:        2012-08-06
+customer:
+    first_name:   Dorothy
+    family_name:  Gale
+
+items:
+    - part_no:   A4786
+      descrip:   Water Bucket (Filled)
+      price:     1.47
+      quantity:  4
+
+    - part_no:   E1628
+      descrip:   High Heeled "Ruby" Slippers
+      size:      8
+      price:     133.7
+      quantity:  1
+
+bill-to:  &id001
+    street: |
+            123 Tornado Alley
+            Suite 16
+    city:   East Centerville
+    state:  KS
+
+ship-to:  *id001
+
+specialDelivery:  |
+    Follow the Yellow Brick
+    Road to the Emerald City.
+    Pay no attention to the
+    man behind the curtain.
+...
+]]
          },
       },
       {
@@ -437,6 +558,45 @@ comments = [[
 functions = nil,
 string_interpolation = nil,
 attributes = nil,
+complete_example = [=[
+receipt = "Oz-Ware Purchase Invoice"
+date = "2012-08-06"
+
+specialDelivery = "Follow the Yellow Brick Road to the Emerald City. Pay no attention to the man behind the curtain."
+
+[customer]
+first_name = "Dorothy"
+family_name = "Gale"
+
+[[items]]
+part_no = "A4786"
+descrip = "Water Bucket (Filled)"
+price = 1.47
+quantity = 4
+
+[[items]]
+part_no = "E1628"
+descrip = 'High Heeled "Ruby" Slippers'
+size = 8
+price = 133.7
+quantity = 1
+
+[bill_to]
+street = """
+123 Tornado Alley
+Suite 16
+"""
+city = "East Centerville"
+state = "KS"
+
+[ship_to]
+street = """
+123 Tornado Alley
+Suite 16
+"""
+city = "East Centerville"
+state = "KS"
+]=]
          },
       },
       {
@@ -511,6 +671,44 @@ comments = [[
 functions = nil,
 string_interpolation = nil,
 attributes = nil,
+complete_example = [[
+{
+  receipt: "Oz-Ware Purchase Invoice",
+  date: "2012-08-06",
+  customer: {
+    first_name: "Dorothy",
+    family_name: "Gale"
+  },
+  items: [
+    {
+      part_no: "A4786",
+      descrip: "Water Bucket (Filled)",
+      price: 1.47,
+      quantity: 4
+    },
+    {
+      part_no: "E1628",
+      descrip: "High Heeled \"Ruby\" Slippers",
+      size: 8,
+      price: 133.7,
+      quantity: 1
+    }
+  ],
+  billTo: {
+    street: "123 Tornado Alley\nSuite 16",
+    city: "East Centerville",
+    state: "KS"
+  },
+  shipTo: {
+    street: "123 Tornado Alley\nSuite 16",
+    city: "East Centerville",
+    state: "KS"
+  },
+  specialDelivery: "Follow the Yellow Brick \
+Road to the Emerald City. \
+Pay no attention to the \
+man behind the curtain."
+}]]
          },
       },
       {
@@ -699,6 +897,48 @@ tag /*foo=true*/ bar=false
             attributes = [[
 author "Peter Parker" email="peter@example.org" active=true
 ]],
+complete_example = [[
+receipt "Oz-Ware Purchase Invoice"
+date 2012-08-06
+
+customer {
+  first_name "Dorothy"
+  family_name "Gale"
+}
+
+items {
+  item {
+    part_no "A4786"
+    descrip "Water Bucket (Filled)"
+    price 1.47
+    quantity 4
+  }
+  item {
+    part_no "E1628"
+    descrip "High Heeled \"Ruby\" Slippers"
+    size 8
+    price 133.7
+    quantity 1
+  }
+}
+
+billTo {
+  street "123 Tornado Alley\nSuite 16"
+  city "East Centerville"
+  state "KS"
+}
+
+shipTo {
+  street "123 Tornado Alley\nSuite 16"
+  city "East Centerville"
+  state "KS"
+}
+
+specialDelivery "Follow the Yellow Brick \
+Road to the Emerald City. \
+Pay no attention to the \
+man behind the curtain."
+]]
          },
       },
       {
@@ -818,6 +1058,48 @@ numbers (u8)10 (i32)20 myfloat=(f32)1.5 {
             attributes = [[
 author "Peter Parker" email="peter@example.org" active=true
 ]],
+complete_example = [[
+receipt "Oz-Ware Purchase Invoice"
+date "2012-08-06"
+
+customer {
+  first_name "Dorothy"
+  family_name "Gale"
+}
+
+items {
+  item {
+    part_no "A4786"
+    descrip "Water Bucket (Filled)"
+    price 1.47
+    quantity 4
+  }
+  item {
+    part_no "E1628"
+    descrip "High Heeled \"Ruby\" Slippers"
+    size 8
+    price 133.7
+    quantity 1
+  }
+}
+
+billTo {
+  street "123 Tornado Alley\nSuite 16"
+  city "East Centerville"
+  state "KS"
+}
+
+shipTo {
+  street "123 Tornado Alley\nSuite 16"
+  city "East Centerville"
+  state "KS"
+}
+
+specialDelivery "Follow the Yellow Brick \
+Road to the Emerald City. \
+Pay no attention to the \
+man behind the curtain."
+]]
          },
       },
       {
@@ -918,6 +1200,50 @@ shouty_message = upper(message)
 message = "Hello, ${name}!"
 ]],
             attributes = nil,
+            complete_example = [[
+receipt = "Oz-Ware Purchase Invoice"
+date = "2012-08-06"
+
+customer {
+  first_name = "Dorothy"
+  family_name = "Gale"
+}
+
+items [
+  {
+    part_no = "A4786"
+    descrip = "Water Bucket (Filled)"
+    price = 1.47
+    quantity = 4
+  },
+  {
+    part_no = "E1628"
+    descrip = "High Heeled \"Ruby\" Slippers"
+    size = 8
+    price = 133.7
+    quantity = 1
+  }
+}
+
+billTo {
+  street = "123 Tornado Alley\nSuite 16"
+  city = "East Centerville"
+  state = "KS"
+}
+
+shipTo {
+  street = "123 Tornado Alley\nSuite 16"
+  city = "East Centerville"
+  state = "KS"
+}
+
+specialDelivery = <<END
+Follow the Yellow Brick
+Road to the Emerald City.
+Pay no attention to the
+man behind the curtain.
+END
+]]
          },
       },
       {
@@ -1302,6 +1628,52 @@ KeyPress('c')
 
 Struct(field1: "Text", field2: 42, field3: true)
 TupleStruct(1, 2, 3)
+]],
+            complete_example = [[
+Invoice(
+  receipt: "Oz-Ware Purchase Invoice",
+  date: "2012-08-06",
+
+  customer: Person(
+    first_name = "Dorothy"
+    family_name = "Gale"
+  ),
+
+  items: [
+    Item(
+      part_no = "A4786"
+      descrip = "Water Bucket (Filled)"
+      price = 1.47
+      quantity = 4
+    ),
+    Item(
+      part_no = "E1628"
+      descrip = "High Heeled \"Ruby\" Slippers"
+      size = 8
+      price = 133.7
+      quantity = 1
+    )
+  },
+
+  billTo: Address(
+    street = "123 Tornado Alley\nSuite 16"
+    city = "East Centerville"
+    state = "KS"
+  ),
+
+  shipTo: Address(
+    street = "123 Tornado Alley\nSuite 16"
+    city = "East Centerville"
+    state = "KS"
+  ),
+
+  specialDelivery: r#"
+Follow the Yellow Brick
+Road to the Emerald City.
+Pay no attention to the
+man behind the curtain.
+"#
+)
 ]]
          },
       },
@@ -1487,18 +1859,76 @@ instructions-link = Log out
          id = "nix",
          name = "Nix",
          syntaxes = {
-            null_values = nil,
-            booleans = nil,
-            integers = nil,
-            floats = nil,
-            strings = nil,
-            literal_strings = nil,
-            multiline_strings = nil,
-            lists = nil,
-            maps = nil,
-            comments = nil,
-            functions = nil,
-            string_interpolation = nil,
+            null_values = "null",
+            booleans = [[
+true
+false
+]],
+integers = [[
+99
+42
+0
+-17
+]],
+floats = [[
+1.0
+3.1415
+-0.01
+]],
+strings = [[
+"I'm a string."
+"You can \"quote\" me."
+"Name\tJos\u00E9\nLoc\tSF."
+
+# Paths:
+
+./hello/world
+<nixpkgs/lib>
+
+# URIs:
+
+http://example.org/foo.tar.bz2
+]],
+literal_strings = [[
+''C:\Users\nodejs\templates''
+''\\User\admin$\system32''
+''Tom "Dubs" Preston-Werner''
+''<\i\c*\s*>''
+]],
+multiline_strings = [[
+''
+Roses are red
+Violets are blue
+''
+
+''The quick brown
+  fox jumps over
+  the lazy dog.
+''
+]],
+            lists = [=[
+[1 2 3]
+["Red" "Yellow" "Green"]
+["Text" 42 true]
+[[1 2] [3 4 5]]
+[[1 2] ["a" "b" "c"]]
+]=],
+            maps = [[
+{
+   key_1 = "Text";
+   key_2 = 42;
+   key_3 = True;
+}
+]],
+            comments = [[
+# Comment
+]],
+            functions = [[
+add = a: b: a + b
+]],
+            string_interpolation = [[
+"Hello, ${name}!"
+]],
             attributes = nil,
          },
       },

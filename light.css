@@ -22,12 +22,12 @@ td.additional { border-top: hidden; padding-top: 0; }
 table.memlayout, table.memlayout td { border-style: solid }
 
 [title]:after { content: '*'; }
-body:after { content: '* See tooltips for details.'; display: block; }
+body:after { display: block; }
 
 .no { background: #FFFFEE; color: black; }
 .yes { background: #EEFFEE; color: black; }
 
-pre, code { font: 1em Andale, monospace; font-style: inherit; }
+pre, code { font: .98em Andale, monospace; font-style: inherit; }
 pre { margin: 1em; white-space: pre-wrap; }
 
 aside {
