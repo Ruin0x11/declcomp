@@ -65,6 +65,14 @@ return {
          name = "Typed Tags"
       },
       {
+         id = "path_expressions",
+         name = "Path Expressions"
+      },
+      {
+         id = "other",
+         name = "Other"
+      },
+      {
          id = "complete_example",
          name = "Complete Example"
       },
@@ -120,6 +128,9 @@ comments = "<!-- Comment -->",
 functions = nil,
 string_interpolation = nil,
 attributes = "<author email=\"peter@example.org\" active=\"true\">Peter Parker</author>",
+meta_information = [[
+<?xml version="1.0" encoding="UTF-8" ?>
+]],
 complete_example = [[
 <?xml version="1.0" encoding="UTF-8" ?>
 <invoice>
@@ -249,7 +260,10 @@ complete_example = [[
          id = "yaml",
          name = "YAML",
          syntaxes = {
-            null_values = "null",
+            null_values = [[
+null
+~
+]],
             booleans = [[
 true
 false
@@ -286,16 +300,16 @@ integers = [[
 53_49_221
 1_2_3_4_5
 
-# Hexadecimal with prefix `0x`:
+# Hexadecimal:
 0xDEADBEEF
 0xdeadbeef
 0xdead_beef
 
-# Octal with prefix `0o`:
-0o01234567
-0o755
+# Octal:
+001234567
+0755
 
-# Binary with prefix `0b`:
+# Binary:
 0b11010110
 ]],
 floats = [[
@@ -303,6 +317,16 @@ floats = [[
 1.0
 3.1415
 -0.01
+
+.inf
+.Inf
+.INF
+-.inf
+-.Inf
+-.INF
+.nan
+.Nan
+.NAN
 
 # Exponent:
 5e+22
@@ -468,16 +492,16 @@ integers = [[
 53_49_221
 1_2_3_4_5
 
-# Hexadecimal with prefix `0x`:
+# Hexadecimal:
 0xDEADBEEF
 0xdeadbeef
 0xdead_beef
 
-# Octal with prefix `0o`:
+# Octal:
 0o01234567
 0o755
 
-# Binary with prefix `0b`:
+# Binary:
 0b11010110
 ]],
 floats = [[
@@ -619,13 +643,16 @@ integers = [[
 0
 -17
 
-// Hexadecimal with prefix `0x`:
+// Hexadecimal:
 0xdeadbeef
 ]],
 floats = [[
 +1.0
 3.1415
 -0.01
+
+NaN
+Infinity
 
 // Leading/trailing decimal point:
 
@@ -966,16 +993,16 @@ false
 53_49_221
 1_2_3_4_5
 
-// Hexadecimal with prefix `0x`:
+// Hexadecimal:
 0xDEADBEEF
 0xdeadbeef
 0xdead_beef
 
-// Octal with prefix `0o`:
+// Octal:
 0o01234567
 0o755
 
-// Binary with prefix `0b`:
+// Binary:
 0b11010110
 ]],
             floats = [[
@@ -1268,7 +1295,7 @@ False
 0
 -17
 
-# Hexadecimal with prefix `0x`:
+# Hexadecimal:
 0xDEADBEEF
 0xdeadbeef
 ]],
@@ -1277,6 +1304,10 @@ False
 1.0
 3.1415
 -0.01
+
+NaN
+Infinity
+-Infinity
 
 // Exponent:
 5e+22
@@ -1376,12 +1407,12 @@ false
 53_49_221
 1_2_3_4_5
 
-# Hexadecimal with prefix `0x`:
+# Hexadecimal:
 0xDEADBEEF
 0xdeadbeef
 0xdead_beef
 
-# Binary with prefix `0b`:
+# Binary:
 0b11010110
 ]],
             floats = [[
@@ -1389,6 +1420,10 @@ false
 1.0
 3.1415
 -0.01
+
+nan
++inf
+-inf
 
 // Exponent:
 5e+22
@@ -1627,8 +1662,14 @@ datetimes = [[
          name = "NestedText",
          class = "plaintext",
          syntaxes = {
-            null_values = nil,
-            booleans = nil,
+            null_values = [[
+null
+undefined
+]],
+            booleans = [[
+true
+false
+]],
             integers = nil,
             floats = nil,
 strings = [[
@@ -1688,6 +1729,165 @@ key 3: true
             functions = nil,
             string_interpolation = nil,
             attributes = nil,
+         }
+      },
+      {
+         id = "ogdl",
+         name = "OGDL",
+         class = "plaintext",
+         link = "https://github.com/nin-jin/tree.d",
+         syntaxes = {
+            null_values = nil,
+            booleans = nil,
+            integers = nil,
+            floats = nil,
+strings = [[
+"I'm a string."
+"You can \"quote\" me."
+
+# Unquoted:
+
+hello
+]],
+literal_strings = [[
+'C:\Users\nodejs\templates'
+'\\User\admin$\system32'
+'Tom "Dubs" Preston-Werner'
+'<\i\c*\s*>'
+]],
+            multiline_strings = [[
+str1 \
+   Roses are red
+   Violets are blue
+
+# Evens out preceding whitespace:
+
+str2 \
+     The quick brown
+    fox jumps over
+   the lazy dog.
+]],
+            lists = [[
+list1
+   1
+   2
+   3
+
+list2
+   Red, Yellow, Green
+
+list3 { Text, 42, true }
+
+list4 { list5 { 1, 2 }, list6 { a, b, c } }
+]],
+            maps = [[
+map
+   key_1 Text
+   key_2 42
+   key_3 true
+]],
+            comments = [[
+# Comment
+]],
+            meta_information = [[
+#? ( ogdl 1.0, encoding iso-8859-1 )
+]],
+            path_expressions = [[
+config.network.ip
+text.paragraph{2}
+limits.range[1]
+]],
+            functions = nil,
+            string_interpolation = nil,
+            attributes = nil,
+         },
+      },
+      {
+         id = "tree",
+         name = "Tree",
+         class = "plaintext",
+         link = "https://github.com/nin-jin/tree.d",
+         syntaxes = {
+            null_values = nil,
+            booleans = nil,
+integers = [[
+99
+42
+0
+-17
+]],
+            floats = [[
+1.0
+3.1415
+-0.01
+
+Nan
+Infinity
+]],
+strings = [[
+\I'm a string.
+\You can "quote" me.
+]],
+literal_strings = [[
+\C:\Users\nodejs\templates
+\\\User\admin$\system32
+\Tom "Dubs" Preston-Werner
+\<\i\c*\s*>
+]],
+            multiline_strings = [[
+\Roses are red
+\Violets are blue
+
+\The quick brown
+\fox jumps over
+\the lazy dog.
+]],
+            lists = [=[
+\
+	1
+	2
+	3
+
+\
+	Red
+	Yellow
+	Green
+
+\
+	Text
+	42
+	true
+
+\
+	\
+		1
+		2
+	\
+		a
+		b
+		c
+]=],
+            maps = [[
+key_1
+	\Text
+key_2
+	42
+key_3
+	true
+
+# Multiline keys:
+\key 4
+	/
+		\Text
+		42
+		true
+]],
+            comments = [[
+# Comment
+]],
+            functions = nil,
+            string_interpolation = nil,
+            attributes = nil,
          },
       },
       {
@@ -1697,7 +1897,7 @@ key 3: true
          link = "https://github.com/ron-rs/ron",
          syntaxes = {
             null_values = [[
-# Option<T> only
+// Option<T> only
 None
 ]],
             booleans = [[
@@ -1710,22 +1910,22 @@ false
 0
 -17
 
-# Grouping:
+// Grouping:
 1_000
 5_349_221
 53_49_221
 1_2_3_4_5
 
-# Hexadecimal with prefix `0x`:
+// Hexadecimal:
 0xDEADBEEF
 0xdeadbeef
 0xdead_beef
 
-# Octal with prefix `0o`:
+// Octal:
 0o01234567
 0o755
 
-# Binary with prefix `0b`:
+// Binary:
 0b11010110
 ]],
             floats = [[
@@ -1774,7 +1974,7 @@ the lazy dog.
 
 # Tuple syntax:
 (1, 2, 3)
-(true,)
+TupleStruct(true,)
 ]=],
             maps = [[
 # Map syntax:
@@ -1787,13 +1987,13 @@ map: {
 
 # Struct syntax:
 
-map: (
+struct: (
    key_1: "Text",
    key_2: 42,
    key_3: true
 )
 
-map: Map(
+struct2: Struct(
    key_1: "Text",
    key_2: 42,
    key_3: true
@@ -1810,27 +2010,22 @@ map: Map(
             string_interpolation = nil,
             attributes = nil,
             other = [[
-# Chars:
+// Chars:
 
 'a'
 '\n'
 
-# Unit structs:
+// Unit structs:
 
 Unit
 ()
 
-# Optionals/Enum variants:
+// Optionals/Enum variants:
 
 Some(42)
 None
 PageLoad
 KeyPress('c')
-
-# Structs:
-
-Struct(field1: "Text", field2: 42, field3: true)
-TupleStruct(1, 2, 3)
 ]],
             complete_example = [[
 Invoice(
@@ -2057,6 +2252,165 @@ login-button =
 instructions-link = Log out
     .tooltip = Disconnect from this account
 ]],
+         },
+      },
+      {
+         id = "dadl",
+         name = "Dadl",
+         class = "plaintext",
+         link = "https://github.com/dadlang/dadl",
+         syntaxes = {
+            null_values = nil,
+            booleans = [[
+true
+false
+]],
+integers = [[
+99
+42
+0
+-17
+]],
+floats = [[
+1.0
+3.1415
+-0.01
+]],
+strings = [[
+# strings.dads
+@schema dadl 0.1
+
+[structure]
+str1 string
+str2 string
+str3 string
+
+ident1 identifier
+formula1 formula <host hostname> [':' <port networkPort>]
+sequence1 sequence[identifier]
+
+
+# strings.dad
+@schema strings.dads
+
+str1 "I'm a string."
+str2 "You can \"quote\" me."
+str3 "Name\tJos\u00E9\nLoc\tSF."
+
+ident1 hello
+formula1 localhost:8080
+sequence1 VAL1 VAL2 VAL3
+]],
+literal_strings = [[
+# literal_strings.dads
+@schema dadl 0.1
+
+[structure]
+str1 string
+str2 string
+str3 string
+str4 string
+
+
+# literal_strings.dad
+@schema literal_strings.dads
+
+str1 C:\Users\nodejs\templates
+str2 \\User\admin$\system32
+str3 Tom "Dubs" Preston-Werner
+str4 <\i\c*\s*>
+]],
+multiline_strings = [[
+# multiline_strings.dads
+@schema dadl 0.1
+
+[structure]
+str1 string
+str2 string
+
+
+# multiline_strings.dad
+@schema multiline_strings.dads
+str1
+    Roses are red
+    Violets are blue
+
+str2
+    The quick brown
+    fox jumps over
+    the lazy dog.
+]],
+lists = [[
+# lists.dads
+@schema dadl 0.1
+
+[structure]
+list1 list[int]
+list2 list[identifier]
+
+
+# lists.dad
+@schema lists.dads
+
+list1
+    1
+    2
+    3
+
+list2
+    Red
+    Green
+    Blue
+]],
+maps = [[
+# maps.dads
+@schema dadl 0.1
+
+map1 map[int]string
+
+map2 map[identifier]
+    childValue int
+
+
+# maps.dad
+@schema maps.dads
+
+map1
+    1 Some value for key 1
+    2 Some value for key 2
+    3 Some value for key 3
+
+map2
+    key1
+        childValue 1
+    key2
+        childValue 2
+]],
+comments = [[
+# Comment
+]],
+functions = nil,
+string_interpolation = nil,
+attributes = nil,
+other = [[
+# other.dads
+@schema dadl 0.1
+
+# Enums
+
+enum1 enum OPTION1 OPTION2 OPTION3
+enum2 enum[bool] YES[true] NO[false]
+enum3 enum[int] CAR[1] TRUCK[2] MOTO[3]
+
+
+# other.dad
+@schema other.dads
+
+enum1 OPTION1
+enum2 YES
+enum3 MOTO
+]],
+complete_example = nil
          },
       },
       {
