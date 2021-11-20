@@ -1223,7 +1223,7 @@ items [
     price = 133.7
     quantity = 1
   }
-}
+]
 
 billTo {
   street = "123 Tornado Alley\nSuite 16"
@@ -1643,13 +1643,14 @@ Invoice(
     Item(
       part_no = "A4786"
       descrip = "Water Bucket (Filled)"
+      size = None,
       price = 1.47
       quantity = 4
     ),
     Item(
       part_no = "E1628"
       descrip = "High Heeled \"Ruby\" Slippers"
-      size = 8
+      size = Some(8)
       price = 133.7
       quantity = 1
     )
@@ -2008,6 +2009,52 @@ function(a, b) return a + b end
 ("Hello, %s!"):format(name)
 ]],
             attributes = nil,
+            complete_example = [=[
+return {
+  receipt = "Oz-Ware Purchase Invoice",
+  date = "2012-08-06",
+
+  customer = {
+    first_name = "Dorothy",
+    family_name = "Gale"
+  },
+
+  items = {
+    {
+      part_no = "A4786",
+      descrip = "Water Bucket (Filled)",
+      price = 1.47,
+      quantity = 4
+    },
+    {
+      part_no = "E1628",
+      descrip = "High Heeled \"Ruby\" Slippers",
+      size = 8,
+      price = 133.7,
+      quantity = 1
+    }
+  },
+
+  bill_to = {
+    street = "123 Tornado Alley\nSuite 16",
+    city = "East Centerville",
+    state = "KS"
+  },
+
+  ship_to = {
+    street = "123 Tornado Alley\nSuite 16",
+    city = "East Centerville",
+    state = "KS"
+  },
+
+  special_delivery = [[
+Follow the Yellow Brick
+Road to the Emerald City.
+Pay no attention to the
+man behind the curtain.
+]]
+}
+]=]
          },
       },
       {
