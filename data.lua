@@ -562,7 +562,11 @@ complete_example = [=[
 receipt = "Oz-Ware Purchase Invoice"
 date = "2012-08-06"
 
-specialDelivery = "Follow the Yellow Brick Road to the Emerald City. Pay no attention to the man behind the curtain."
+specialDelivery = """
+Follow the Yellow Brick \
+Road to the Emerald City. \
+Pay no attention to the \
+man behind the curtain."""
 
 [customer]
 first_name = "Dorothy"
@@ -880,17 +884,15 @@ map {
 [sdf789GSfsb2+3324sf2]
 ]],
             comments = [[
-// C++ style
+// Comment
 
 /*
-C style multiline
-*/
+ * Block comment
+ */
 
-tag /*foo=true*/ bar=false
+# Comment
 
-# Shell style
-
--- Lua style
+-- Comment
 ]],
             functions = nil,
             string_interpolation = nil,
@@ -1023,13 +1025,11 @@ map {
             datetimes = nil,
             binary = nil,
             comments = [[
-// C style
+// Comment
 
 /*
-C style multiline
-*/
-
-tag /*foo=true*/ bar=false
+ * Block comment
+ */
 
 /*/*
 hello
@@ -1050,6 +1050,9 @@ mynode /-"commented" "not commented" /-key="value" /-{
             functions = nil,
             string_interpolation = nil,
             typed_tags = [[
+(i32)12
+(celsius)100
+
 numbers (u8)10 (i32)20 myfloat=(f32)1.5 {
   strings (uuid)"123e4567-e89b-12d3-a456-426614174000" (date)"2021-02-03" filter=(regex)r"$\d+"
   (author)person name="Alex"
@@ -1334,6 +1337,206 @@ let add = \(a : Natural) -> \(b : Natural) -> a + b
 "Hello, ${name}!"
 ]],
             attributes = nil,
+         },
+      },
+      {
+         id = "ion",
+         name = "Ion",
+         class = "plaintext",
+         syntaxes = {
+            null_values = [[
+null
+null.null
+null.bool
+null.int
+null.float
+null.decimal
+null.timestamp
+null.string
+null.symbol
+null.blob
+null.clob
+null.struct
+null.list
+null.sexp
+]],
+            booleans = [[
+true
+false
+]],
+            integers = [[
+99
+42
+0
+-17
+
+# Grouping:
+1_000
+5_349_221
+53_49_221
+1_2_3_4_5
+
+# Hexadecimal with prefix `0x`:
+0xDEADBEEF
+0xdeadbeef
+0xdead_beef
+
+# Binary with prefix `0b`:
+0b11010110
+]],
+            floats = [[
+// Fractional:
+1.0
+3.1415
+-0.01
+
+// Exponent:
+5e+22
+1e06
+-2E-2
+
+// Both:
+6.626e-34
+]],
+strings = [[
+"I'm a string."
+"You can \"quote\" me."
+"Name\tJos\u00E9\nLoc\tSF."
+
+// Symbols:
+
+'myVar2'
+myVar2
+myvar2
+'hi ho'
+'\'ahoy\''
+]],
+literal_strings = [[
+'''C:\Users\nodejs\templates'''
+'''\\User\admin$\system32'''
+'''Tom "Dubs" Preston-Werner'''
+'''<\i\c*\s*>'''
+]],
+            multiline_strings = [[
+'''\
+Roses are red
+Violets are blue
+'''
+
+( '''The quick brown'''
+  '''fox jumps over'''
+  '''the lazy dog.''' )
+]],
+            lists = [=[
+[1, 2, 3]
+["Text", 42, true]
+[[1, 2], [3, 4, 5]]
+
+# S-expressions:
+
+()
+(cons 1 2)
+([hello][there])
+
+(a+-b)  ( 'a' '+-' 'b' )    // Equivalent; three symbols
+(a.b;)  ( 'a' '.' 'b' ';')  // Equivalent; four symbols
+]=],
+            maps = [[
+{
+   key_1: "Text",
+   key_2: 42,
+   key_3: true
+}
+]],
+            datetimes = [[
+1985-04-12T23:20Z
+1985-04-12T23:20:50.520-08:00
+1985-04-12T23:20:50.520Z
+1985-04-13T07:20:50.520+00:00
+1985-04-13T07:20:50.520-00:00
+
+1985-04-12
+1985-04-12T
+1985-04T
+1985T
+]],
+            binary = [[
+// Blobs:
+
+{{ sdf789GSfsb2+3324sf2 }}
+
+// Clobs:
+
+{{ "Hello World" }}
+
+shift_jis ::
+{{
+   '''吾輩は猫である。'''
+   '''名前はまだ無い。''''
+}}
+]],
+            comments = [[
+// Comment
+
+/*
+ * Block comment
+ */
+]],
+            functions = nil,
+            string_interpolation = nil,
+            typed_tags = [[
+int32::12
+degrees::'celsius'::100
+'my.custom.type' :: { x : 12 , y : -1 }
+
+{ field: some_annotation::value }
+]],
+            complete_example = [[
+{
+  receipt: "Oz-Ware Purchase Invoice",
+  date: 2012-08-06T,
+
+  customer: {
+    first_name: "Dorothy",
+    family_name: "Gale"
+  },
+
+  items: [
+    {
+      part_no: "A4786",
+      descrip: "Water Bucket (Filled)",
+      price: 1.47,
+      quantity: 4
+    },
+    {
+      part_no: "E1628",
+      descrip: "High Heeled \"Ruby\" Slippers",
+      size: 8,
+      price: 133.7,
+      quantity: 1
+    }
+  ],
+
+  billTo: {
+    street: "123 Tornado Alley\nSuite 16",
+    city: "East Centerville",
+    state: "KS"
+  },
+
+  shipTo: {
+    street: "123 Tornado Alley\nSuite 16",
+    city: "East Centerville",
+    state: "KS"
+  },
+
+  specialDelivery: '''\
+Follow the Yellow Brick
+Road to the Emerald City.
+Pay no attention to the
+man behind the curtain.
+'''
+}
+]]
          },
       },
       {
@@ -1993,15 +2196,18 @@ the lazy dog.
    [true] = "value_3"
 }
 ]],
-            comments = [=[
+            comments = [==[
 -- Comment
 
 --[[
-   Line 1
-   Line 2
-   Line 3
+   Block comment
 --]]
-]=],
+
+--[=[
+   Block comment
+--]=]
+
+]==],
             functions = [[
 function(a, b) return a + b end
 ]],
