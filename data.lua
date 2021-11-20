@@ -771,6 +771,7 @@ str3: "Name\tJos\u00E9\nLoc\tSF."
 # Unquoted:
 
 str4: hello
+str5: abc_123
 ]],
 literal_strings = nil,
             multiline_strings = [[
@@ -836,6 +837,116 @@ include url("http://mydomain.com/myfile.conf")
 include "path/to/file.conf"
 include file("path/to/file.conf")
 conf = include "file.conf"
+]]
+         },
+      },
+      {
+         id = "cson",
+         name = "CSON",
+         class = "plaintext",
+         syntaxes = {
+            null_values = "null",
+            booleans = [[
+true
+false
+]],
+integers = [[
+99
+42
+0
+-17
+]],
+floats = [[
+1.0
+3.1415
+-0.01
+]],
+strings = [[
+"I'm a string."
+"You can \"quote\" me."
+"Name\tJos\u00E9\nLoc\tSF."
+]],
+literal_strings = [[
+'C:\Users\nodejs\templates'
+'\\User\admin$\system32'
+'Tom "Dubs" Preston-Werner'
+'<\i\c*\s*>'
+]],
+multiline_strings = [[
+'''
+Roses are red
+Violets are blue
+''''
+
+'''
+The quick brown
+fox jumps over
+the lazy dog.
+'''
+]],
+lists = [=[
+[1, 2, 3]
+["Red", "Yellow", "Green"]
+[
+    "Text"
+    42
+    true
+]
+
+[[1, 2], [3, 4, 5]]
+[[1, 2], ["a", "b", "c"]]
+]=],
+maps = [[
+map:
+   key_1: "Text"
+   key_2: 42
+   key_3: true
+]],
+comments = "# Comment",
+functions = nil,
+string_interpolation = nil,
+attributes = nil,
+complete_example = [[
+receipt: 'Oz-Ware Purchase Invoice'
+date: '2012-08-06'
+
+customer:
+  first_name: 'Dorothy'
+  family_name: 'Gale'
+
+items: [
+  {
+    part_no: 'A4786'
+    descrip: 'Water Bucket (Filled)'
+    price: 1.47
+    quantity: 4
+  }
+  {
+    part_no: 'E1628'
+    descrip: 'High Heeled "Ruby" Slippers'
+    size: 8
+    price: 133.7
+    quantity: 1
+  }
+]
+
+billTo:
+  street: '''
+    123 Tornado Alley
+    Suite 16
+  '''
+  city: 'East Centerville'
+  state: 'KS'
+
+shipTo:
+  street: '''
+    123 Tornado Alley
+    Suite 16
+  '''
+  city: 'East Centerville'
+  state: 'KS'
+
+specialDelivery: 'Follow the Yellow Brick Road to the Emerald City. Pay no attention to the man behind the curtain.'
 ]]
          },
       },
@@ -1732,10 +1843,171 @@ key 3: true
          }
       },
       {
+         id = "openddl",
+         name = "OpenDDL",
+         class = "plaintext",
+         syntaxes = {
+            null_values = nil,
+            booleans = [[
+true
+false
+]],
+integers = [[
+99
+42
+0
+-17
+
+// Grouping:
+1_000
+5_349_221
+53_49_221
+1_2_3_4_5
+
+// Hexadecimal:
+0xDEADBEEF
+0xdeadbeef
+0xdead_beef
+
+// Octal:
+0o01234567
+0o755
+
+// Binary:
+0b11010110
+]],
+floats = [[
+// Fractional:
+1.0
+3.1415
+-0.01
+
+// Exponent:
+5e+22
+1e06
+-2E-2
+
+// Both:
+6.626e-34
+]],
+strings = [[
+"I'm a string."
+"You can \"quote\" me."
+"Name\tJos\u00E9\nLoc\tSF."
+
+# Identifiers:
+
+hello
+abc_123
+]],
+literal_strings = nil,
+            multiline_strings = nil,
+lists = [[
+int[3]
+{
+    {1, 2, 3}
+}
+
+string[3]
+{
+    {"Red", "Yellow", "Green"}
+}
+]],
+maps = [[
+Map
+{
+   Key1 {string {"Text"}}
+   Key2 {int {42}}
+   Key3 {bool {true}}
+}
+]],
+comments = [[
+// Comment
+
+/*
+ * Block comment
+ */
+]],
+functions = nil,
+string_interpolation = nil,
+attributes = [[
+Author (email = "peter@example.org", active = true)
+{
+    Name {string {"Peter Parker"}}
+}
+]],
+other = [[
+// Chars
+
+'a'
+'\n'
+
+// Data states
+
+float[2]*
+{
+    M{1.0, 1.0}, L{2.0, 1.0}, C{3.0, 1.0}, {3.0, 2.0}, {2.0, 3.0}
+}
+
+// References
+
+GeometryObject $geometry1
+{
+    // ...
+}
+
+GeometryNode $node1
+{
+    Name {string {"Box001"}}
+    ObjectRef {ref {$geometry1}}
+}
+]],
+complete_example = [[
+Address $address
+{
+    street {string {"123 Tornado Alley\nSuite 16"}}
+    city {string {"East Centerville"}}
+    state {string {"KS"}}
+}
+
+Invoice {
+  receipt {string {"Oz-Ware Purchase Invoice"}}
+  date {string {"2012-08-06"}}
+
+  Customer
+  {
+      first_name {string {"Dorothy"}}
+      family_name {string {"Gale"}}
+  }
+
+  Item
+  {
+      part_no {string {"A4786"}}
+      descrip {string {"Water Bucket (Filled)"}}
+      price {float {1.47}}
+      quantity {int {4}}
+  }
+  Item
+  {
+      part_no {string {"E1628"}}
+      descrip {string {"High Heeled \"Ruby\" Slippers"}}
+      size {int {8}}
+      price {float {133.7}}
+      quantity {int {1}}
+  }
+
+  billTo {ref {$address}}
+  shipTo {ref {$address}}
+
+  specialDelivery {string {"Follow the Yellow Brick Road to the Emerald City. Pay no attention to the man behind the curtain."}}
+}]]
+         },
+      },
+      {
          id = "ogdl",
          name = "OGDL",
          class = "plaintext",
-         link = "https://github.com/nin-jin/tree.d",
+         link = "http://ogdl.org",
          syntaxes = {
             null_values = nil,
             booleans = nil,
@@ -1748,6 +2020,7 @@ strings = [[
 # Unquoted:
 
 hello
+abc_123
 ]],
 literal_strings = [[
 'C:\Users\nodejs\templates'
