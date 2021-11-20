@@ -233,7 +233,7 @@ floats = [[
 ]],
 strings = [[
 str1: "I'm a string."
-str2: "You can "quote" me."
+str2: "You can \"quote\" me."
 str3: "Name\tJos\u00E9\nLoc\tSF."
 ]],
 literal_strings = nil,
@@ -242,7 +242,7 @@ str1: |
   Roses are red
   Violets are blue
 
-str2: |-
+str2: >+
   The quick brown
   fox jumps over
   the lazy dog.
@@ -592,6 +592,12 @@ map.key_3 = true
             functions = nil,
             string_interpolation = [[
 message : Hello, ${name}!
+
+// Substitutions:
+
+standard-timeout = 10ms
+foo.timeout = ${standard-timeout}
+bar.timeout = ${standard-timeout}
 ]],
             attributes = nil,
             other = [[
@@ -601,12 +607,6 @@ include url("http://mydomain.com/myfile.conf")
 include "path/to/file.conf"
 include file("path/to/file.conf")
 conf = include "file.conf"
-
-// Substitutions:
-
-standard-timeout = 10ms
-foo.timeout = ${standard-timeout}
-bar.timeout = ${standard-timeout}
 ]]
          },
       },
@@ -1306,22 +1306,181 @@ TupleStruct(1, 2, 3)
          },
       },
       {
+         id = "starlark",
+         name = "Starlark",
+         class = "python",
+         syntaxes = {
+            null_values = "None",
+            booleans = [[
+True
+False
+]],
+            integers = [[
+99
+42
+0
+-17
+
+int("0xdeadbeef", 16)
+]],
+            floats = [[
+# Fractional:
+1.0
+3.1415
+-0.01
+
+# Exponent:
+5e+22
+1e06
+-2E-2
+
+# Both:
+6.626e-34
+]],
+strings = [[
+"I'm a string."
+"You can \"quote\" me."
+"Name\tJos\u00E9\nLoc\tSF."
+]],
+literal_strings = [[
+'C:\Users\nodejs\templates'
+'\\User\admin$\system32'
+'Tom "Dubs" Preston-Werner'
+'<\i\c*\s*>'
+]],
+            multiline_strings = [[
+'''
+Roses are red
+Violets are blue
+'''
+
+'''
+The quick brown
+fox jumps over
+the lazy dog.
+'''
+]],
+            lists = [=[
+[1, 2, 3]
+["Red", "Yellow", "Green"]
+["Text", 42, true]
+[[1, 2], [3, 4, 5]]
+[[1, 2], ["a", "b", "c"]]
+
+# Tuple syntax:
+(1, 2, 3)
+(true,)
+]=],
+            maps = [[
+map = {
+   key_1: "Text",
+   key_2: 42,
+   key_3: True
+}
+]],
+            comments = [[
+# Comment
+]],
+            functions = [[
+def add(a, b):
+   return a + b
+]],
+            string_interpolation = [[
+"Hello, %s!" % name
+"Hello %s, your score is %d" % (name, 75)
+]],
+            attributes = nil,
+         },
+      },
+      {
          id = "fluent",
          name = "Fluent",
+         class = "plaintext",
          syntaxes = {
             null_values = nil,
             booleans = nil,
-            integers = nil,
-            floats = nil,
-            strings = nil,
-            literal_strings = nil,
-            multiline_strings = nil,
+            integers = [[
+{99}
+{42}
+{0}
+{-17}
+]],
+            floats = [[
+{1.0}
+{3.1415}
+{-0.01}
+]],
+            strings = [[
+str1 = I'm a string.
+str2 = You can "quote" me.
+str3 = Name\tJos\u00E9\nLoc\tSF.
+
+# Terms:
+
+-brand-name = Firefox
+]],
+            literal_strings = [[
+string-expression = {"abc"}
+number-expression = {123}
+number-expression = {-3.14}
+]],
+            multiline_strings = [[
+key1 = Roses are red
+   Violets are blue
+
+key2
+    .attr = The quick brown
+        fox jumps over
+        the lazy dog.
+]],
             lists = nil,
             maps = nil,
-            comments = nil,
-            functions = nil,
-            string_interpolation = nil,
-            attributes = nil,
+            comments = "# Comment",
+            functions = [[
+pref-page =
+    .title = { PLATFORM() ->
+        [windows] Options
+       *[other] Preferences
+    }
+
+# Term parameters:
+
+-term = { $arg ->
+   *[key] Value
+}
+key01 = { -term }
+key02 = { -term () }
+key03 = { -term(arg: 1) }
+key04 = { -term("positional", narg1: 1, narg2: 2) }
+]],
+            expressions = [[
+emails = { $unreadEmails ->
+        [one] You have one unread email.
+        [42] You have { $unreadEmails } unread emails. So Long, and Thanks for All the Fish.
+       *[other] You have { $unreadEmails } unread emails.
+    }
+]],
+            string_interpolation = [[
+message = Hello, { $user }!
+
+# References:
+
+menu-settings = Settings
+help-menu-settings = Click { menu-settings } to save the file.
+
+# Term references:
+
+-brand-short-name = Firefox
+close-msg = Close { -brand-short-name }
+]],
+            attributes = [[
+login-button =
+    .label = Login
+    .accesskey = L
+
+instructions-link = Log out
+    .tooltip = Disconnect from this account
+]],
          },
       },
       {
@@ -1352,13 +1511,13 @@ TupleStruct(1, 2, 3)
 true
 false
 ]],
-            integers = [[
+integers = [[
 99
 42
 0
 -17
 ]],
-            floats = [[
+floats = [[
 1.0
 3.1415
 -0.01
